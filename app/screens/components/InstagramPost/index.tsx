@@ -7,13 +7,30 @@ import IconButton from 'components/IconButton';
 import IconButtonOnPressAnimation from 'components/IconButtonOnPressAnimation';
 // assets
 import Styles from 'assets/styles/styles';
+import {Colors} from 'assets/styles/constants';
+// utils
+import {formatToHumanReadable} from '../../../utils/date';
 
-const InstagramPost: React.FC = ({username, caption, media_url}) => {
+interface IInstagramPostProps {
+  username: string;
+  id: string;
+  caption: string;
+  media_url: string;
+  media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
+  timestamp: any;
+}
+
+const InstagramPost: React.FC<IInstagramPostProps> = ({
+  username,
+  caption,
+  media_url,
+  timestamp,
+}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
-          <AvatarButton size="sm" />
+          <AvatarButton size="sm" style={styles.iconButton} />
           <Text style={styles.username}>{username}</Text>
         </View>
         <IconButton name="dots-vertical" />
@@ -34,6 +51,11 @@ const InstagramPost: React.FC = ({username, caption, media_url}) => {
         </View>
         <IconButtonOnPressAnimation nameArr={['bookmark', 'bookmark-alt']} />
       </View>
+      <View style={styles.captionSection}>
+        <Text style={styles.username}>{username}</Text>
+        <Text>{caption}</Text>
+      </View>
+      <Text style={styles.timestamp}>{formatToHumanReadable(timestamp)}</Text>
     </View>
   );
 };
@@ -53,9 +75,20 @@ const styles = StyleSheet.create({
     flex: 0,
   },
 
-  username: {fontWeight: 'bold', marginLeft: 15},
-  mediaContainer: {height: 300, marginVertical: 10},
+  username: {fontWeight: 'bold', marginRight: 15},
+  mediaContainer: {height: 300, marginTop: 10},
   buttonSection: {flexDirection: 'row'},
-  buttonContainer: {flexDirection: 'row', justifyContent: 'space-between'},
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
   iconButton: {marginRight: 15},
+  captionSection: {
+    flexDirection: 'row',
+  },
+  timestamp: {
+    color: Colors.TEXT_GREY,
+    fontSize: 12,
+  },
 });

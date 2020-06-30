@@ -8,6 +8,8 @@ import StoryFeed from './StoryFeed';
 import useFetchData from 'hooks/useFetchData';
 // api
 import {getAll} from 'utils/services/api/post';
+// colors
+import {Colors} from 'assets/styles/constants';
 
 const a1 = require('assets/img/fake/a1.jpg');
 const a2 = require('assets/img/fake/a2.jpg');
@@ -22,7 +24,7 @@ const Home: React.FC = () => {
         <View style={styles.container}>
           <StoryFeed storyArr={storyArr} />
           {resource &&
-            resource?.map((postData) => (
+            resource?.map((postData: any) => (
               <InstagramPost {...postData} key={postData.id} />
             ))}
         </View>
@@ -34,5 +36,5 @@ const Home: React.FC = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {marginHorizontal: 15},
+  container: {paddingHorizontal: 15, backgroundColor: Colors.WHITE},
 });

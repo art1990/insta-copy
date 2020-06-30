@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
   GestureResponderEvent,
   Alert,
+  Text,
 } from 'react-native';
 // components
 import Avatar, {IAvatarProps} from 'components/Avatar';
@@ -17,24 +18,31 @@ import {Colors} from 'assets/styles/constants';
 interface IAvatarButtonProps extends IAvatarProps {
   onPress?: (event: GestureResponderEvent) => void;
   withBorder?: boolean;
+  username?: string;
+  style?: any;
 }
 
 const AvatarButton: React.FC<IAvatarButtonProps> = ({
   onPress = () => Alert.alert('Press'),
   withBorder = true,
+  username,
+  style,
   ...rest
 }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
-      <LinearGradient
-        colors={['#CA1D7E', '#E35157', '#F2703F']}
-        start={{x: 0.0, y: 1.0}}
-        end={{x: 1.0, y: 1.0}}
-        style={[withBorder && styles.linearContainer]}>
-        <View style={styles.container}>
-          <Avatar {...rest} />
-        </View>
-      </LinearGradient>
+      <View style={[styles.wrapper, style]}>
+        <LinearGradient
+          colors={['#CA1D7E', '#E35157', '#F2703F']}
+          start={{x: 0.0, y: 1.0}}
+          end={{x: 1.0, y: 1.0}}
+          style={[withBorder && styles.linearContainer]}>
+          <View style={styles.container}>
+            <Avatar {...rest} />
+          </View>
+        </LinearGradient>
+        {username && <Text>{username}</Text>}
+      </View>
     </TouchableWithoutFeedback>
   );
 };
@@ -42,8 +50,12 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
 export default AvatarButton;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   linearContainer: {
-    alignSelf: 'flex-start',
+    alignSelf: 'center',
     borderRadius: 200,
     padding: 2,
     overflow: 'hidden',

@@ -1,10 +1,11 @@
 // react
-import React from 'react';
+import React, {useMemo} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 // components
 import AvatarButton from 'components/AvatarButton';
 import IconButton from 'components/IconButton';
 import IconButtonOnPressAnimation from 'components/IconButtonOnPressAnimation';
+import Carousel from 'components/Carousel';
 // assets
 import Styles from 'assets/styles/styles';
 import {Colors} from 'assets/styles/constants';
@@ -18,6 +19,7 @@ interface IInstagramPostProps {
   media_url: string;
   media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
   timestamp: any;
+  children: any;
 }
 
 const InstagramPost: React.FC<IInstagramPostProps> = ({
@@ -25,7 +27,13 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
   caption,
   media_url,
   timestamp,
+  children,
 }) => {
+  const images = useMemo(
+    () => children && children.data.map((el) => el.media_url),
+    [children],
+  );
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -35,11 +43,17 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
         </View>
         <IconButton name="dots-vertical" />
       </View>
-      <Image
-        source={{uri: media_url}}
-        style={[Styles.fullScreen, styles.mediaContainer]}
-        resizeMode="cover"
-      />
+      <View style={styles.mediaWrapper}>
+        {children ? (
+          <Carousel images={images} />
+        ) : (
+          <Image
+            source={{uri: media_url}}
+            style={[Styles.fullScreen, styles.mediaContainer]}
+            resizeMode="cover"
+          />
+        )}
+      </View>
       <View style={styles.buttonContainer}>
         <View style={styles.buttonSection}>
           <IconButtonOnPressAnimation
@@ -76,7 +90,10 @@ const styles = StyleSheet.create({
   },
 
   username: {fontWeight: 'bold', marginRight: 15},
-  mediaContainer: {height: 300, marginTop: 10},
+  mediaWrapper: {
+    marginTop: 10,
+  },
+  mediaContainer: {height: 300},
   buttonSection: {flexDirection: 'row'},
   buttonContainer: {
     flexDirection: 'row',
@@ -89,6 +106,6 @@ const styles = StyleSheet.create({
   },
   timestamp: {
     color: Colors.TEXT_GREY,
-    fontSize: 12,
+    fontSize: 10,
   },
 });

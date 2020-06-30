@@ -3,9 +3,10 @@ import {ACCESS_TOKEN, API_URL} from 'react-native-dotenv';
 // axios
 const axios = require('axios');
 
-export const getAll = async (param: any) => {
+export const getAll = async () => {
   const params = {
-    fields: 'id,media_type,media_url,caption,username,timestamp',
+    fields:
+      'id,media_type,media_url,caption,username,timestamp,children{media_type,media_url,thumbnail_url}',
     access_token: ACCESS_TOKEN,
     limit: 4,
   };

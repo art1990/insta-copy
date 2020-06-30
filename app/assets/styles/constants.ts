@@ -5,4 +5,5 @@ export enum Colors {
   CARUSEL_DEFAULT = '#a8a8a8',
   CARUSEL_ACTIVE = '#0095f6',
   MEDIA_META_BG = 'rgba(0,0,0,0.7)',
+  SPINNER = 'rgba(0,0,0,0.1)',
 }

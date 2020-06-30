@@ -77,7 +77,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
 export default InstagramPost;
 
 const styles = StyleSheet.create({
-  container: {marginBottom: 15},
+  container: {marginBottom: 15, paddingHorizontal: 15},
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

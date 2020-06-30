@@ -36,13 +36,17 @@ const useFetchData: TUseFetchData = function ({
 
   const fetchResource = useCallback(
     async (params) => {
+      console.log(isLoading, 'fetch');
+
       try {
         setValues((state) => ({...state, isLoading: true}));
         const response = await api(params);
-        setValues({
-          resource: serializer(response.data?.data),
+        setValues((prev) => ({
+          resource: params?.loadMore
+            ? [...prev?.resource, ...serializer(response.data?.data)]
+            : serializer(response.data?.data),
           isLoading: false,
-        });
+        }));
         return serializer(response.data);
       } catch (error) {
         setValues((state) => ({...state, isLoading: false}));

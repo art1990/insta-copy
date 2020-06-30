@@ -1,15 +1,38 @@
 // react
 import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
+// components
+import InstagramPost from '../components/InstagramPost/index';
+import StoryFeed from './StoryFeed';
+// hooks
+import useFetchData from 'hooks/useFetchData';
+// api
+import {getAll} from 'utils/services/api/post';
+
+const a1 = require('assets/img/fake/a1.jpg');
+const a2 = require('assets/img/fake/a2.jpg');
+
+const storyArr = [a1, a2, a1, a2, a1, a2, a1, a2];
 
 const Home: React.FC = () => {
+  const {resource} = useFetchData({api: getAll});
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <>
+      <ScrollView>
+        <View style={styles.container}>
+          <StoryFeed storyArr={storyArr} />
+          {resource &&
+            resource?.map((postData) => (
+              <InstagramPost {...postData} key={postData.id} />
+            ))}
+        </View>
+      </ScrollView>
+    </>
   );
 };
 
 export default Home;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {marginHorizontal: 15},
+});

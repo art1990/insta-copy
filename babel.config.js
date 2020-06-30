@@ -15,6 +15,7 @@ module.exports = {
           screens: './app/screens',
           utils: './app/utils',
           assets: './app/assets',
+          hooks: './app/hooks',
           store: './app/store',
         },
       },

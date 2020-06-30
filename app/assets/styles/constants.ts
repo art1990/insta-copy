@@ -4,4 +4,5 @@ export enum Colors {
   TEXT_GREY = 'rgb(142, 142, 142)',
   CARUSEL_DEFAULT = '#a8a8a8',
   CARUSEL_ACTIVE = '#0095f6',
+  MEDIA_META_BG = 'rgba(0,0,0,0.7)',
 }

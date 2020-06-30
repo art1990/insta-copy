@@ -30,7 +30,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
   children,
 }) => {
   const images = useMemo(
-    () => children && children.data.map((el) => el.media_url),
+    () => children && children.data.map((el: any) => el.media_url),
     [children],
   );
 

@@ -13,16 +13,19 @@ import {getAll} from 'utils/services/api/post';
 import {Colors} from 'assets/styles/constants';
 
 const Home: React.FC = () => {
-  const {resource, fetchResource, isLoading} = useFetchData({api: getAll});
-
+  const {resource, fetchResource, isLoading, paging} = useFetchData({
+    api: getAll,
+  });
   const loadMore = useCallback(() => {
-    if (isLoading) {
+    if (isLoading || !paging?.next) {
       return;
     }
-    fetchResource({loadMore: true});
-  }, [isLoading, fetchResource]);
+    fetchResource({isLoadMore: true});
+  }, [isLoading, fetchResource, paging?.next]);
 
-  const onRefresh = async (setRefreshing) => {
+  const onRefresh = async (
+    setRefreshing: React.Dispatch<React.SetStateAction<boolean>>,
+  ) => {
     setRefreshing(true);
     await fetchResource();
     setRefreshing(false);
@@ -34,7 +37,7 @@ const Home: React.FC = () => {
           postsList={resource}
           loadMore={loadMore}
           onRefresh={onRefresh}
-          renderFooter={isLoading && <Spinner />}
+          renderFooter={() => isLoading && <Spinner />}
         />
       )}
     </View>

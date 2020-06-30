@@ -1,6 +1,6 @@
 // react
 import React, {useState} from 'react';
-import {FlatList, RefreshControl} from 'react-native';
+import {FlatList} from 'react-native';
 // components
 import InstagramPost from '../components/InstagramPost';
 import StoryFeed from './StoryFeed';
@@ -13,7 +13,21 @@ const a2 = require('assets/img/fake/a2.jpg');
 
 const storyArr = [a1, a2, a1, a2, a1, a2, a1, a2];
 
-const CustomFlatList = ({renderFooter, loadMore, postsList, onRefresh}) => {
+interface ICustomFlatListProps {
+  renderFooter: false | Element;
+  loadMore: () => void;
+  onRefresh: (
+    setRefresh: React.Dispatch<React.SetStateAction<boolean>>,
+  ) => void;
+  postsList: any;
+}
+
+const CustomFlatList: React.FC<ICustomFlatListProps> = ({
+  renderFooter,
+  loadMore,
+  postsList,
+  onRefresh,
+}) => {
   const [refreshing, setRefreshing] = useState(false);
 
   return (
@@ -26,6 +40,7 @@ const CustomFlatList = ({renderFooter, loadMore, postsList, onRefresh}) => {
       refreshing={false}
       bounces={false}
       onEndReachedThreshold={0.001}
+      //@ts-ignore
       ListFooterComponent={renderFooter}
       ListHeaderComponent={
         <>

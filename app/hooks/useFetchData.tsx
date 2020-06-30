@@ -1,7 +1,7 @@
 // react
 import {useCallback, useEffect, useState} from 'react';
 
-type TApi = (params: any) => Promise<any>;
+type TApi = (paging?: {next: string} | null) => Promise<any>;
 
 type TUseFetchData = ({
   api,
@@ -18,8 +18,9 @@ type TUseFetchData = ({
 }) => {
   resource: any;
   isLoading: boolean;
-  fetchResource: (params: any) => Promise<any>;
+  fetchResource: (params?: any) => Promise<any>;
   setResource: (setter: any) => void;
+  paging: any;
 };
 
 const useFetchData: TUseFetchData = function ({
@@ -29,31 +30,31 @@ const useFetchData: TUseFetchData = function ({
   initialParams,
   serializer = (data) => data,
 }) {
-  const [{resource, isLoading}, setValues] = useState({
+  const [{resource, isLoading, paging}, setValues] = useState({
     isLoading: initialLoad,
     resource: initialValues,
+    paging: null,
   });
 
   const fetchResource = useCallback(
     async (params) => {
-      console.log(isLoading, 'fetch');
-
       try {
         setValues((state) => ({...state, isLoading: true}));
-        const response = await api(params);
+        const response = await api(params?.isLoadMore && paging);
         setValues((prev) => ({
-          resource: params?.loadMore
+          resource: params?.isLoadMore
             ? [...prev?.resource, ...serializer(response.data?.data)]
-            : serializer(response.data?.data),
+            : serializer(response?.data?.data),
           isLoading: false,
+          paging: response?.data.paging,
         }));
-        return serializer(response.data);
+        return serializer(response?.data);
       } catch (error) {
         setValues((state) => ({...state, isLoading: false}));
         console.log('API ERROR', error);
       }
     },
-    [api, serializer],
+    [api, serializer, paging],
   );
 
   const setResource = useCallback((setter) => {
@@ -68,7 +69,7 @@ const useFetchData: TUseFetchData = function ({
       fetchResource(initialParams);
     }
   }, []);
-  return {resource, isLoading, fetchResource, setResource};
+  return {resource, isLoading, fetchResource, setResource, paging};
 };
 
 export default useFetchData;

@@ -1,6 +1,6 @@
 // react
 import React from 'react';
-import {StyleSheet, ActivityIndicator} from 'react-native';
+import {ActivityIndicator} from 'react-native';
 // assets
 import {Colors} from 'assets/styles/constants';
 
@@ -9,5 +9,3 @@ const Spinner = () => {
 };
 
 export default Spinner;
-
-const styles = StyleSheet.create({});

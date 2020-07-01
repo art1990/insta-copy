@@ -1,11 +1,23 @@
 // react
-import React, {useMemo} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import React, {useMemo, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableWithoutFeedback,
+  Dimensions,
+} from 'react-native';
 // components
 import AvatarButton from 'components/AvatarButton';
 import IconButton from 'components/IconButton';
 import IconButtonOnPressAnimation from 'components/IconButtonOnPressAnimation';
 import Carousel from 'components/Carousel';
+// modal
+import Modal from 'react-native-modal';
+// navigation
+import {useNavigation} from '@react-navigation/native';
+import {Routes} from 'navigation/routes';
 // assets
 import Styles from 'assets/styles/styles';
 import {Colors} from 'assets/styles/constants';
@@ -34,14 +46,47 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
     [children],
   );
 
+  const [isVisible, setIsVisible] = useState(false);
+  const navigation = useNavigation();
+  const toComment = () => {
+    navigation.navigate(Routes.COMMENT);
+  };
+
+  const showModal = () => {
+    setIsVisible(true);
+  };
+
+  const hiddenModal = () => {
+    setIsVisible(false);
+  };
+
+  const deviceWidth = Dimensions.get('window').width;
+  const deviceHeight = require('react-native-extra-dimensions-android').get(
+    'REAL_WINDOW_HEIGHT',
+  );
+
   return (
     <View style={styles.container}>
+      <Modal
+        deviceWidth={deviceWidth}
+        deviceHeight={deviceHeight}
+        onBackdropPress={hiddenModal}
+        isVisible={isVisible}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.modalText}>Report...</Text>
+          <Text style={styles.modalText}>Turn On Post Notifications</Text>
+          <Text style={styles.modalText}> Copy Link</Text>
+          <Text style={styles.modalText}>Share to...</Text>
+          <Text style={styles.modalText}>Unfollow</Text>
+          <Text style={styles.modalText}>Mute</Text>
+        </View>
+      </Modal>
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <AvatarButton size="sm" style={styles.iconButton} />
           <Text style={styles.username}>{username}</Text>
         </View>
-        <IconButton name="dots-vertical" />
+        <IconButton name="dots-vertical" onPress={showModal} />
       </View>
       <View style={styles.mediaWrapper}>
         {children ? (
@@ -60,7 +105,11 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
             nameArr={['hearto', 'heart']}
             style={styles.iconButton}
           />
-          <IconButton name="comment" style={styles.iconButton} />
+          <IconButton
+            name="comment"
+            style={styles.iconButton}
+            onPress={toComment}
+          />
           <IconButton name="send" />
         </View>
         <IconButtonOnPressAnimation nameArr={['bookmark', 'bookmark-alt']} />
@@ -78,6 +127,13 @@ export default InstagramPost;
 
 const styles = StyleSheet.create({
   container: {marginBottom: 15, paddingHorizontal: 15},
+  modalContainer: {
+    backgroundColor: Colors.WHITE,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    borderRadius: 4,
+  },
+  modalText: {fontSize: 16, paddingVertical: 10, paddingRight: 30},
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',

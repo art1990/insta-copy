@@ -7,6 +7,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import IconButton from 'components/IconButton';
 // screens
 import Home from 'screens/Home';
+import Comment from 'screens/Comment';
 // routes
 import {Routes} from './routes';
 
@@ -42,6 +43,7 @@ const HomeStackScreen: React.FC = () => (
         ),
       })}
     />
+    <HomeStack.Screen name={Routes.COMMENT} component={Comment} />
   </HomeStack.Navigator>
 );
 

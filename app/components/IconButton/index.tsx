@@ -1,19 +1,56 @@
 // react
 import React from 'react';
-import {TouchableHighlight, GestureResponderEvent} from 'react-native';
+import {
+  TouchableWithoutFeedback,
+  GestureResponderEvent,
+  Alert,
+} from 'react-native';
 // icon
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import FeatherIcons from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AntDesignIcons from 'react-native-vector-icons/AntDesign';
+import FontistoIcons from 'react-native-vector-icons/Fontisto';
 
-interface IIconProps {
+export interface IIconProps {
   onPress?: (event: GestureResponderEvent) => void;
-  name: 'camera' | 'send';
+  name:
+    | 'camera'
+    | 'send'
+    | 'dots-vertical'
+    | 'comment'
+    | 'bookmark'
+    | 'bookmark-alt'
+    | 'hearto'
+    | 'heart';
   size?: number;
+  style?: any;
+  color?: string;
 }
 
-const IconButton: React.FC<IIconProps> = ({onPress, name, size = 25}) => (
-  <TouchableHighlight onPress={onPress}>
-    <SimpleLineIcons name={name} size={size} />
-  </TouchableHighlight>
-);
+const IconButton: React.FC<IIconProps> = ({
+  onPress = () => Alert.alert('Press icon button'),
+  name,
+  size = 25,
+  style,
+  color,
+}) => {
+  const Icon =
+    name === 'send'
+      ? FeatherIcons
+      : name === 'dots-vertical'
+      ? MaterialCommunityIcons
+      : name === 'comment' || name === 'bookmark' || name === 'bookmark-alt'
+      ? FontistoIcons
+      : name === 'hearto' || name === 'heart'
+      ? AntDesignIcons
+      : SimpleLineIcons;
+
+  return (
+    <TouchableWithoutFeedback onPress={onPress}>
+      <Icon name={name} size={size} style={style} color={color} />
+    </TouchableWithoutFeedback>
+  );
+};
 
 export default IconButton;

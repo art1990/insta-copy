@@ -9,4 +9,5 @@ export enum Routes {
   ADD_PHOTO_TAB = 'Add photo tab',
   ACTIVITY_TAB = 'Activity tab',
   PROFILE_TAB = 'Profile tab',
+  COMMENT = 'Comment',
 }

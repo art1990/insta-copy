@@ -1,11 +1,13 @@
 // react
 import React from 'react';
+import {Alert} from 'react-native';
 // react-navigator
 import {createStackNavigator} from '@react-navigation/stack';
 // components
 import IconButton from 'components/IconButton';
 // screens
 import Home from 'screens/Home';
+import Comment from 'screens/Comment';
 // routes
 import {Routes} from './routes';
 
@@ -19,11 +21,29 @@ const HomeStackScreen: React.FC = () => (
     <HomeStack.Screen
       name={Routes.HOME}
       component={Home}
-      options={({navigation, route}) => ({
-        headerLeft: () => <IconButton onPress={() => {}} name="camera" />,
-        headerTitle: (props) => <Logo width={80} />,
+      options={() => ({
+        headerLeft: () => (
+          <IconButton
+            onPress={() => {
+              Alert.alert('press');
+            }}
+            name="camera"
+          />
+        ),
+        headerLeftContainerStyle: {paddingLeft: 10},
+        headerRightContainerStyle: {paddingRight: 10},
+        headerTitle: () => <Logo width={80} />,
+        headerRight: () => (
+          <IconButton
+            onPress={() => {
+              Alert.alert('press');
+            }}
+            name="send"
+          />
+        ),
       })}
     />
+    <HomeStack.Screen name={Routes.COMMENT} component={Comment} />
   </HomeStack.Navigator>
 );
 

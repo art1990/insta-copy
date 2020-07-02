@@ -1,47 +1,39 @@
 // react
 import React, {useMemo, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from 'react-native';
+import {StyleSheet, Text, View, Dimensions} from 'react-native';
 // components
 import AvatarButton from 'components/AvatarButton';
 import IconButton from 'components/IconButton';
 import IconButtonOnPressAnimation from 'components/IconButtonOnPressAnimation';
-import Carousel from 'components/Carousel';
+import Media from './Media';
 // modal
 import Modal from 'react-native-modal';
 // navigation
 import {useNavigation} from '@react-navigation/native';
 import {Routes} from 'navigation/routes';
 // assets
-import Styles from 'assets/styles/styles';
 import {Colors} from 'assets/styles/constants';
 // utils
 import {formatToHumanReadable} from '../../../utils/date';
 
-interface IInstagramPostProps {
+export interface IInstagramPostProps {
   username: string;
   id: string;
   caption: string;
   media_url: string;
   media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
-  timestamp: any;
-  children: any;
+  timestamp: string;
+  children: {data: string[]};
 }
 
 const InstagramPost: React.FC<IInstagramPostProps> = ({
   username,
   caption,
-  media_url,
   timestamp,
   children,
+  ...rest
 }) => {
-  const images = useMemo(
+  const mediaList = useMemo(
     () => children && children.data.map((el: any) => el.media_url),
     [children],
   );
@@ -75,7 +67,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
         <View style={styles.modalContainer}>
           <Text style={styles.modalText}>Report...</Text>
           <Text style={styles.modalText}>Turn On Post Notifications</Text>
-          <Text style={styles.modalText}> Copy Link</Text>
+          <Text style={styles.modalText}>Copy Link</Text>
           <Text style={styles.modalText}>Share to...</Text>
           <Text style={styles.modalText}>Unfollow</Text>
           <Text style={styles.modalText}>Mute</Text>
@@ -88,17 +80,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
         </View>
         <IconButton name="dots-vertical" onPress={showModal} />
       </View>
-      <View style={styles.mediaWrapper}>
-        {children ? (
-          <Carousel images={images} />
-        ) : (
-          <Image
-            source={{uri: media_url}}
-            style={[Styles.fullScreen, styles.mediaContainer]}
-            resizeMode="cover"
-          />
-        )}
-      </View>
+      <Media mediaList={mediaList} children={children} {...rest} />
       <View style={styles.buttonContainer}>
         <View style={styles.buttonSection}>
           <IconButtonOnPressAnimation
@@ -133,7 +115,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 4,
   },
-  modalText: {fontSize: 16, paddingVertical: 10, paddingRight: 30},
+  modalText: {
+    fontSize: 16,
+    paddingVertical: 10,
+    paddingRight: 30,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -146,10 +132,6 @@ const styles = StyleSheet.create({
   },
 
   username: {fontWeight: 'bold', marginRight: 15},
-  mediaWrapper: {
-    marginTop: 10,
-  },
-  mediaContainer: {height: 300},
   buttonSection: {flexDirection: 'row'},
   buttonContainer: {
     flexDirection: 'row',

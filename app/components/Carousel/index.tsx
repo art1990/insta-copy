@@ -13,7 +13,7 @@ import Styles from 'assets/styles/styles';
 // colors
 import {Colors} from 'assets/styles/constants';
 
-const Carousel: React.FC<{images: string[]}> = ({images}) => {
+const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollRef = useRef(null);
 
@@ -34,7 +34,7 @@ const Carousel: React.FC<{images: string[]}> = ({images}) => {
 
   const isActive = (i: number) => i === selectedIndex;
 
-  const imgLength = images.length;
+  const imgLength = mediaList.length;
   return (
     <View style={[Styles.fullScreen, styles.container]}>
       <View style={styles.pagesCountViewer}>
@@ -47,16 +47,16 @@ const Carousel: React.FC<{images: string[]}> = ({images}) => {
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={setSelected}
         ref={scrollRef}>
-        {images.map((image) => (
+        {mediaList.map((media) => (
           <Image
             style={styles.backgroundImage}
-            source={{uri: image}}
-            key={image}
+            source={{uri: media}}
+            key={media}
           />
         ))}
       </ScrollView>
       <View style={styles.circleDiv}>
-        {images.map((image, i) => (
+        {mediaList.map((media, i) => (
           <View
             style={[
               styles.circle,
@@ -64,7 +64,7 @@ const Carousel: React.FC<{images: string[]}> = ({images}) => {
               isActive(i) && styles.circleActive,
               isSmallCircle(i) && styles.circleSmall,
             ]}
-            key={image}
+            key={media}
             accessible={i === selectedIndex}
           />
         ))}

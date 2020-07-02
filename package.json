@@ -20,6 +20,7 @@
     "@types/react-native-modal": "^4.1.1",
     "@types/react-native-svg-uri": "^1.2.3",
     "@types/react-native-vector-icons": "^6.4.5",
+    "@types/react-native-video": "^5.0.1",
     "axios": "^0.19.2",
     "date-fns": "^2.14.0",
     "nodejs-mobile-react-native": "^0.6.1",
@@ -37,7 +38,8 @@
     "react-native-svg": "^12.1.0",
     "react-native-svg-transformer": "^0.14.3",
     "react-native-svg-uri": "^1.2.3",
-    "react-native-vector-icons": "^6.6.0"
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-video": "^4.4.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

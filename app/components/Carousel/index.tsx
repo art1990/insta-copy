@@ -8,6 +8,8 @@ import {
   Image,
   Text,
 } from 'react-native';
+// components
+import DarkBgContainer from '../DarkBgContainer';
 // assets
 import Styles from 'assets/styles/styles';
 // colors
@@ -37,10 +39,10 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
   const imgLength = mediaList.length;
   return (
     <View style={[Styles.fullScreen, styles.container]}>
-      <View style={styles.pagesCountViewer}>
+      <DarkBgContainer style={styles.pagesCountViewer}>
         <Text style={styles.countText}>{selectedIndex + 1}/</Text>
         <Text style={styles.countText}>{imgLength}</Text>
-      </View>
+      </DarkBgContainer>
       <ScrollView
         horizontal
         pagingEnabled
@@ -75,19 +77,8 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
 
 const styles = StyleSheet.create({
   container: {height: 300},
-  pagesCountViewer: {
-    position: 'absolute',
-    top: 10,
-    right: 10,
-    flexDirection: 'row',
-    backgroundColor: Colors.MEDIA_META_BG,
-    zIndex: 999,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 10,
-  },
+  pagesCountViewer: {position: 'absolute', top: 10, right: 10},
   countText: {color: Colors.WHITE},
-
   backgroundImage: {
     width: Dimensions.get('window').width,
   },

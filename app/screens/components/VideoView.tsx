@@ -15,6 +15,7 @@ const VideoView: React.FC<{media_url: string}> = ({media_url}) => {
         paused={false}
         repeat={true}
         resizeMode="cover"
+        volume={0}
       />
     </View>
   );

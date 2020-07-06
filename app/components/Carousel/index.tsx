@@ -8,7 +8,6 @@ import {
   Image,
   Text,
   Animated,
-  ScrollViewComponent,
 } from 'react-native';
 // components
 import DarkBgContainer from '../DarkBgContainer';
@@ -18,13 +17,14 @@ import Styles from 'assets/styles/styles';
 import {Colors} from 'assets/styles/constants';
 
 const {width: windowWidth} = Dimensions.get('window');
+const dotsSize = 6;
 
 const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const dotsContainerRef = useRef<{[key: string]: {}}>({});
-  const dotsScrollRef = useRef<ScrollViewComponent>(null);
+  const dotsScrollRef = useRef<ScrollView>(null);
 
   const setSelected = (event: any): void => {
     const contentOffset = event.nativeEvent.contentOffset;
@@ -36,11 +36,11 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
 
   const imgLength = mediaList.length;
 
-  const scrollTo = (index) => {
+  const scrollTo = (index: number) => {
     const get = dotsContainerRef.current[`dots_${index}`];
 
     if (get) {
-      const x = get.x - 25;
+      const x = get.x - dotsSize * 6;
       return dotsScrollRef?.current && dotsScrollRef.current.scrollTo({x});
     }
   };
@@ -88,7 +88,7 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
         horizontal
         pagingEnabled
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{alignItems: 'center'}}>
+        contentContainerStyle={styles.circleContentContainer}>
         {mediaList.map((media, i) => {
           const color = scrollX.interpolate({
             inputRange: [
@@ -116,7 +116,6 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
             <Animated.View
               style={[
                 styles.circle,
-                // isDisplayNone(i) && styles.displayNone,
                 {backgroundColor: color, transform: [{scale}]},
               ]}
               key={media}
@@ -148,21 +147,13 @@ const styles = StyleSheet.create({
     bottom: -25,
     alignSelf: 'center',
     height: 15,
-    width: 70,
+    width: dotsSize * 11,
   },
+  circleContentContainer: {alignItems: 'center'},
   circle: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    margin: 5,
-    backgroundColor: Colors.CARUSEL_DEFAULT,
-  },
-  circleActive: {backgroundColor: Colors.CARUSEL_ACTIVE, display: 'flex'},
-  circleSmall: {
-    display: 'flex',
-    width: 3,
-    height: 3,
-    borderRadius: 3,
+    width: dotsSize,
+    height: dotsSize,
+    borderRadius: dotsSize / 2,
     margin: 5,
     backgroundColor: Colors.CARUSEL_DEFAULT,
   },

@@ -14,6 +14,8 @@ import FontistoIcons from 'react-native-vector-icons/Fontisto';
 
 export interface IIconProps {
   onPress?: (event: GestureResponderEvent) => void;
+  onPressIn?: (event: GestureResponderEvent) => void;
+  onPressOut?: (event: GestureResponderEvent) => void;
   name:
     | 'camera'
     | 'send'
@@ -30,6 +32,8 @@ export interface IIconProps {
 
 const IconButton: React.FC<IIconProps> = ({
   onPress = () => Alert.alert('Press icon button'),
+  onPressIn,
+  onPressOut,
   name,
   size = 25,
   style,
@@ -47,7 +51,10 @@ const IconButton: React.FC<IIconProps> = ({
       : SimpleLineIcons;
 
   return (
-    <TouchableWithoutFeedback onPress={onPress}>
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}>
       <Icon name={name} size={size} style={style} color={color} />
     </TouchableWithoutFeedback>
   );

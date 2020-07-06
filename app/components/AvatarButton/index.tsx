@@ -5,7 +5,6 @@ import {
   View,
   TouchableWithoutFeedback,
   GestureResponderEvent,
-  Alert,
   Text,
   Animated,
 } from 'react-native';
@@ -24,41 +23,70 @@ interface IAvatarButtonProps extends IAvatarProps {
 }
 
 const AvatarButton: React.FC<IAvatarButtonProps> = ({
-  onPress = () => Alert.alert('Press'),
+  onPress = () => {},
   withBorder = true,
   username,
   style,
   ...rest
 }) => {
-  const animated = useRef(new Animated.Value(0)).current;
+  const animatedDashed = useRef(new Animated.Value(0)).current;
+  const animatedScale = useRef(new Animated.Value(1)).current;
+  const animatedOpacity = useRef(new Animated.Value(0)).current;
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const startAnim = () => {
+  const onPressIn = () => {
     setIsLoading(true);
-    Animated.loop(
-      Animated.timing(animated, {
-        toValue: 90,
-        duration: 4000,
+    Animated.sequence([
+      Animated.timing(animatedScale, {
+        toValue: 0.8,
         useNativeDriver: false,
+        duration: 100,
       }),
-    ).start();
+    ]).start();
+  };
+
+  const onPressOut = () => {
+    Animated.timing(animatedScale, {
+      toValue: 1,
+      duration: 100,
+      useNativeDriver: false,
+    }).start();
   };
 
   useEffect(() => {
     let time: number | null = null;
-    time = isLoading
-      ? setTimeout(() => {
-          setIsLoading(false);
-        }, 1000)
-      : null;
+    if (isLoading) {
+      time = setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      Animated.sequence([
+        Animated.timing(animatedOpacity, {
+          toValue: 1,
+          useNativeDriver: false,
+          duration: 0,
+        }),
+        Animated.loop(
+          Animated.timing(animatedDashed, {
+            toValue: 90,
+            duration: 4000,
+            useNativeDriver: false,
+          }),
+        ),
+      ]).start();
+    }
     return () => {
       time && clearTimeout(time);
     };
-  }, [isLoading]);
+  }, [isLoading, animatedOpacity, animatedDashed]);
 
   return (
-    <TouchableWithoutFeedback onPress={onPress} onPressIn={startAnim}>
-      <View style={[styles.wrapper, style]}>
+    <TouchableWithoutFeedback
+      onPress={onPress}
+      onPressIn={onPressIn}
+      onPressOut={onPressOut}>
+      <Animated.View
+        style={[styles.wrapper, style, {transform: [{scale: animatedScale}]}]}>
         <LinearGradient
           colors={['#CA1D7E', '#E35157', '#F2703F']}
           start={{x: 0.0, y: 1.0}}
@@ -71,12 +99,18 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
             style={[
               styles.loader,
               isLoading && styles.visible,
-              {transform: [{rotate: animated}]},
+              {transform: [{rotate: animatedDashed}]},
+              {
+                opacity: animatedOpacity.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0, isLoading ? 1 : 0],
+                }),
+              },
             ]}
           />
         </LinearGradient>
         {username && <Text>{username}</Text>}
-      </View>
+      </Animated.View>
     </TouchableWithoutFeedback>
   );
 };

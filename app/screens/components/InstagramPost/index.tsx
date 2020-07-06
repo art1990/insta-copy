@@ -65,12 +65,18 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
         onBackdropPress={hiddenModal}
         isVisible={isVisible}>
         <View style={styles.modalContainer}>
-          <Text style={styles.modalText}>Report...</Text>
-          <Text style={styles.modalText}>Turn On Post Notifications</Text>
-          <Text style={styles.modalText}>Copy Link</Text>
-          <Text style={styles.modalText}>Share to...</Text>
-          <Text style={styles.modalText}>Unfollow</Text>
-          <Text style={styles.modalText}>Mute</Text>
+          {[
+            'Report...',
+            'Turn On Post Notifications',
+            'Copy Link',
+            'Share to...',
+            'Unfollow',
+            'Mute',
+          ].map((el) => (
+            <Text style={styles.modalText} key={el}>
+              {el}
+            </Text>
+          ))}
         </View>
       </Modal>
       <View style={styles.header}>

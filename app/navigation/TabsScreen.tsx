@@ -12,7 +12,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 
 // colors
-import {Colors} from 'assets/styles/constants';
 import {Routes} from './routes';
 // icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -80,8 +79,6 @@ const TabsScreen = () => (
                 name={`heart${focused ? '' : 'o'}`}
               />
             );
-          // case Routes.PROFILE_TAB:
-          //   return <CalendarIcon />;
         }
       },
     })}>

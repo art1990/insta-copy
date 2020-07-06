@@ -1,6 +1,6 @@
 // react
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, GestureResponderEvent} from 'react-native';
+import {StyleSheet, GestureResponderEvent} from 'react-native';
 // components
 import IconButton, {IIconProps} from 'components/IconButton';
 

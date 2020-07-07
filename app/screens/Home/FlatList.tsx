@@ -1,8 +1,8 @@
 // react
-import React, {useState} from 'react';
-import {FlatList} from 'react-native';
+import React, { useState } from 'react';
+import { FlatList } from 'react-native';
 // components
-import InstagramPost from '../components/InstagramPost';
+import InstagramPost from 'components/InstagramPost';
 import StoryFeed from './StoryFeed';
 import Spinner from 'components/Spinner';
 // assets

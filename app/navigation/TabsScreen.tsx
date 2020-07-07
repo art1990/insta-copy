@@ -1,20 +1,19 @@
 // react
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 // components
 import Avatar from 'components/Avatar';
 // screens
 import HomeStackScreen from './HomeStackScreen';
+import ProfileStackScreen from './ProfileStackScreen';
 import Search from 'screens/Search';
 import Activity from 'screens/Activity';
 import AddPhoto from 'screens/AddPhoto';
-import Profile from 'screens/Profile';
 // navigation
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createStackNavigator} from '@react-navigation/stack';
-
-// colors
-import {Routes} from './routes';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+// routes
+import { Routes } from './routes';
 // icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
@@ -41,13 +40,6 @@ const ActivityStackScreen = () => (
   </ActivityStack.Navigator>
 );
 
-const ProfileStack = createStackNavigator();
-const ProfileStackScreen = () => (
-  <ProfileStack.Navigator>
-    <ProfileStack.Screen name={Routes.PROFILE} component={Profile} />
-  </ProfileStack.Navigator>
-);
-
 const Tabs = createBottomTabNavigator();
 
 const TabsScreen = () => (
@@ -56,10 +48,10 @@ const TabsScreen = () => (
       showLabel: false,
       style: styles.taBarContainer,
     }}
-    screenOptions={({route}) => ({
+    screenOptions={({ route }) => ({
       gestureEnabled: true,
 
-      tabBarIcon: ({focused}) => {
+      tabBarIcon: ({ focused }) => {
         const size = 30;
 
         switch (route.name) {

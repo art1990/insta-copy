@@ -1,6 +1,6 @@
 // react
 import React from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import { StyleSheet, ScrollView, View } from 'react-native';
 // components
 import AvatarButton from 'components/AvatarButton';
 // assets
@@ -10,7 +10,7 @@ interface IStoryFeedProps {
   storyArr: any[];
 }
 
-const StoryFeed: React.FC<IStoryFeedProps> = ({storyArr}) => {
+const StoryFeed: React.FC<IStoryFeedProps> = ({ storyArr }) => {
   return (
     <View style={[Styles.fullScreen, styles.container]}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>

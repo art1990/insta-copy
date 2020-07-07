@@ -1,22 +1,22 @@
 // react
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, TouchableWithoutFeedback, Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, TouchableWithoutFeedback, Text } from 'react-native';
 // components
-import DarkBgContainer from '../../components/DarkBgContainer';
+import DarkBgContainer from '../DarkBgContainer';
 // icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 // video
 import Video from 'react-native-video';
 // utils
-import {formatToTimer} from 'utils/date';
+import { formatToTimer } from 'utils/date';
 // assets
 import Styles from 'assets/styles/styles';
 // colors
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 
 let timer: number | null = null;
 
-const VideoView: React.FC<{media_url: string}> = ({media_url}) => {
+const VideoView: React.FC<{ media_url: string }> = ({ media_url }) => {
   const [isSound, setIsSound] = useState(false);
   const [isSoundIconVisible, setIsSoundIconVisible] = useState(false);
   const [restTime, setRestTime] = useState<string | null>(null);
@@ -58,7 +58,7 @@ const VideoView: React.FC<{media_url: string}> = ({media_url}) => {
         </DarkBgContainer>
         <Text style={styles.restTime}>{restTime}</Text>
         <Video
-          source={{uri: media_url}}
+          source={{ uri: media_url }}
           style={[Styles.fullScreen, styles.mediaContainer]}
           paused={false}
           repeat={true}
@@ -74,8 +74,8 @@ const VideoView: React.FC<{media_url: string}> = ({media_url}) => {
 export default VideoView;
 
 const styles = StyleSheet.create({
-  container: {position: 'relative'},
-  mediaContainer: {height: '100%'},
+  container: { position: 'relative' },
+  mediaContainer: { height: '100%' },
   iconContainer: {
     position: 'absolute',
     bottom: 10,

@@ -1,5 +1,5 @@
 // react
-import React, {useRef, useState, useEffect} from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -9,11 +9,11 @@ import {
   Animated,
 } from 'react-native';
 // components
-import Avatar, {IAvatarProps} from 'components/Avatar';
+import Avatar, { IAvatarProps } from 'components/Avatar';
 // linear-gradient
 import LinearGradient from 'react-native-linear-gradient';
 // colors
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 
 interface IAvatarButtonProps extends IAvatarProps {
   onPress?: (event: GestureResponderEvent) => void;
@@ -86,11 +86,15 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
       onPressIn={onPressIn}
       onPressOut={onPressOut}>
       <Animated.View
-        style={[styles.wrapper, style, {transform: [{scale: animatedScale}]}]}>
+        style={[
+          styles.wrapper,
+          style,
+          { transform: [{ scale: animatedScale }] },
+        ]}>
         <LinearGradient
           colors={['#CA1D7E', '#E35157', '#F2703F']}
-          start={{x: 0.0, y: 1.0}}
-          end={{x: 1.0, y: 1.0}}
+          start={{ x: 0.0, y: 1.0 }}
+          end={{ x: 1.0, y: 1.0 }}
           style={[withBorder && styles.linearContainer]}>
           <View style={styles.container}>
             <Avatar {...rest} />
@@ -99,7 +103,7 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
             style={[
               styles.loader,
               isLoading && styles.visible,
-              {transform: [{rotate: animatedDashed}]},
+              { transform: [{ rotate: animatedDashed }] },
               {
                 opacity: animatedOpacity.interpolate({
                   inputRange: [0, 1],
@@ -144,7 +148,7 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
   },
-  visible: {opacity: 1},
+  visible: { opacity: 1 },
   container: {
     position: 'relative',
     padding: 2,

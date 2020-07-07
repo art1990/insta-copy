@@ -1,6 +1,6 @@
 // react
-import React, {useMemo, useState} from 'react';
-import {StyleSheet, Text, View, Dimensions} from 'react-native';
+import React, { useMemo, useState } from 'react';
+import { StyleSheet, Text, View, Dimensions } from 'react-native';
 // components
 import AvatarButton from 'components/AvatarButton';
 import IconButton from 'components/IconButton';
@@ -9,12 +9,12 @@ import Media from './Media';
 // modal
 import Modal from 'react-native-modal';
 // navigation
-import {useNavigation} from '@react-navigation/native';
-import {Routes} from 'navigation/routes';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from 'navigation/routes';
 // assets
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 // utils
-import {formatToHumanReadable} from '../../../utils/date';
+import { formatToHumanReadable } from '../../utils/date';
 
 export interface IInstagramPostProps {
   username: string;
@@ -23,7 +23,7 @@ export interface IInstagramPostProps {
   media_url: string;
   media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
   timestamp: string;
-  children: {data: string[]};
+  children: { data: string[] };
 }
 
 const InstagramPost: React.FC<IInstagramPostProps> = ({
@@ -114,7 +114,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
 export default InstagramPost;
 
 const styles = StyleSheet.create({
-  container: {marginBottom: 15, paddingHorizontal: 15},
+  container: { marginBottom: 15, paddingHorizontal: 15 },
   modalContainer: {
     backgroundColor: Colors.WHITE,
     alignSelf: 'center',
@@ -137,14 +137,14 @@ const styles = StyleSheet.create({
     flex: 0,
   },
 
-  username: {fontWeight: 'bold', marginRight: 15},
-  buttonSection: {flexDirection: 'row'},
+  username: { fontWeight: 'bold', marginRight: 15 },
+  buttonSection: { flexDirection: 'row' },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
   },
-  iconButton: {marginRight: 15},
+  iconButton: { marginRight: 15 },
   captionSection: {
     flexDirection: 'row',
   },

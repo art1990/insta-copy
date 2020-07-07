@@ -1,8 +1,8 @@
 // react
-import React, {useState, useRef} from 'react';
-import {StyleSheet, GestureResponderEvent, Animated} from 'react-native';
+import React, { useState, useRef } from 'react';
+import { GestureResponderEvent, Animated } from 'react-native';
 // components
-import IconButton, {IIconProps} from 'components/IconButton';
+import IconButton, { IIconProps } from 'components/IconButton';
 
 interface IIconWithAnimationProps extends Omit<IIconProps, 'name'> {
   nameArr: IIconProps['name'][];
@@ -38,7 +38,7 @@ const IconButtonOnPressAnimation: React.FC<IIconWithAnimationProps> = ({
     }).start();
 
   return (
-    <Animated.View style={{transform: [{scale: scaleAnimation}]}}>
+    <Animated.View style={{ transform: [{ scale: scaleAnimation }] }}>
       <IconButton
         {...rest}
         name={name}

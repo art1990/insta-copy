@@ -6,6 +6,8 @@ import {
   TouchableWithoutFeedback,
   GestureResponderEvent,
   Text,
+  StyleProp,
+  ViewStyle,
   Animated,
 } from 'react-native';
 // components
@@ -19,7 +21,7 @@ interface IAvatarButtonProps extends IAvatarProps {
   onPress?: (event: GestureResponderEvent) => void;
   withBorder?: boolean;
   username?: string;
-  style?: any;
+  style?: StyleProp<ViewStyle>;
 }
 
 const AvatarButton: React.FC<IAvatarButtonProps> = ({

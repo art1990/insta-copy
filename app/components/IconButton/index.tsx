@@ -3,6 +3,8 @@ import React from 'react';
 import {
   TouchableWithoutFeedback,
   GestureResponderEvent,
+  TextStyle,
+  StyleProp,
   Alert,
 } from 'react-native';
 // icon
@@ -26,7 +28,7 @@ export interface IIconProps {
     | 'hearto'
     | 'heart';
   size?: number;
-  style?: any;
+  style?: StyleProp<TextStyle>;
   color?: string;
 }
 

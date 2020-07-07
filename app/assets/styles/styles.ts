@@ -1,8 +1,8 @@
 // react
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 // utils
 // @ts-ignore
-import {vw} from 'react-native-expo-viewport-units';
+import { vw } from 'react-native-expo-viewport-units';
 
 export default StyleSheet.create({
   fullScreen: {

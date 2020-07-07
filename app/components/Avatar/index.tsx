@@ -1,13 +1,13 @@
 // react
 import React from 'react';
-import {StyleSheet, Image, View} from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 // image
 const defaultAvatar = require('assets/img/defaultAvatar.jpeg');
 // colors
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 
 export interface IAvatarProps {
-  source?: any;
+  source?: NodeRequire | string;
   size?: 'md' | 'sm' | 'esm' | 'lg';
   isFocused?: boolean;
 }
@@ -28,7 +28,7 @@ const Avatar: React.FC<IAvatarProps> = ({
   return (
     <View style={[isFocused && styles.borderWrapper]}>
       <Image
-        source={typeof source === 'string' ? {uri: source} : source}
+        source={typeof source === 'string' ? { uri: source } : source}
         style={[styles.container, sizeStyle]}
       />
     </View>

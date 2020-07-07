@@ -1,5 +1,5 @@
 // react
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   StyleSheet,
   View,
@@ -14,16 +14,25 @@ import DarkBgContainer from '../DarkBgContainer';
 // assets
 import Styles from 'assets/styles/styles';
 // colors
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 
-const {width: windowWidth} = Dimensions.get('window');
+export type ViewLayout = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+const { width: windowWidth } = Dimensions.get('window');
 const dotsSize = 6;
 
-const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
+const Carousel: React.FC<{ mediaList: string[] }> = ({ mediaList }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const scrollRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
-  const dotsContainerRef = useRef<{[key: string]: {}}>({});
+  const dotsContainerRef = useRef<{ [key: string]: { x: number; y: number } }>(
+    {},
+  );
   const dotsScrollRef = useRef<ScrollView>(null);
 
   const setSelected = (event: any): void => {
@@ -37,11 +46,11 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
   const imgLength = mediaList.length;
 
   const scrollTo = (index: number) => {
-    const get = dotsContainerRef.current[`dots_${index}`];
+    const dotPosition = dotsContainerRef.current[`dots_${index}`];
 
-    if (get) {
-      const x = get.x - dotsSize * 6;
-      return dotsScrollRef?.current && dotsScrollRef.current.scrollTo({x});
+    if (dotPosition) {
+      const x = dotPosition.x - dotsSize * 6;
+      return dotsScrollRef?.current && dotsScrollRef.current.scrollTo({ x });
     }
   };
 
@@ -71,13 +80,13 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
               },
             },
           ],
-          {useNativeDriver: false},
+          { useNativeDriver: false },
         )}
         scrollEventThrottle={1}>
         {mediaList.map((media) => (
           <Image
             style={styles.backgroundImage}
-            source={{uri: media}}
+            source={{ uri: media }}
             key={media}
           />
         ))}
@@ -116,16 +125,18 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
             <Animated.View
               style={[
                 styles.circle,
-                {backgroundColor: color, transform: [{scale}]},
+                { backgroundColor: color, transform: [{ scale }] },
               ]}
               key={media}
               accessible={i === selectedIndex}
               onLayout={({
                 nativeEvent: {
-                  layout: {x, y},
+                  layout: { x, y },
                 },
+              }: {
+                nativeEvent: { layout: ViewLayout };
               }) => {
-                dotsContainerRef.current[`dots_${i}`] = {x, y};
+                dotsContainerRef.current[`dots_${i}`] = { x, y };
               }}
             />
           );
@@ -136,9 +147,9 @@ const Carousel: React.FC<{mediaList: string[]}> = ({mediaList}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {height: 300},
-  pagesCountViewer: {position: 'absolute', top: 10, right: 10},
-  countText: {color: Colors.WHITE},
+  container: { height: 300 },
+  pagesCountViewer: { position: 'absolute', top: 10, right: 10 },
+  countText: { color: Colors.WHITE },
   backgroundImage: {
     width: windowWidth,
   },
@@ -149,7 +160,7 @@ const styles = StyleSheet.create({
     height: 15,
     width: dotsSize * 11,
   },
-  circleContentContainer: {alignItems: 'center'},
+  circleContentContainer: { alignItems: 'center' },
   circle: {
     width: dotsSize,
     height: dotsSize,

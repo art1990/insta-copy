@@ -1,10 +1,10 @@
 // react
 import React from 'react';
-import {StyleSheet, View, StyleProp, ViewStyle} from 'react-native';
+import { StyleSheet, View, StyleProp, ViewStyle } from 'react-native';
 // colors
-import {Colors} from 'assets/styles/constants';
+import { Colors } from 'assets/styles/constants';
 
-const DarkBgContainer: React.FC<{style: StyleProp<ViewStyle>}> = ({
+const DarkBgContainer: React.FC<{ style: StyleProp<ViewStyle> }> = ({
   children,
   style,
 }) => {

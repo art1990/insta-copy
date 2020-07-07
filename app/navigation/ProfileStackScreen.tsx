@@ -3,8 +3,6 @@ import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 // react-navigator
 import { createStackNavigator } from '@react-navigation/stack';
-// components
-import IconButton from 'components/IconButton';
 // screens
 import Profile from 'screens/Profile';
 // routes

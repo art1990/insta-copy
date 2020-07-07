@@ -1,6 +1,8 @@
 // react
 import React from 'react';
 import {StyleSheet} from 'react-native';
+// components
+import Avatar from 'components/Avatar';
 // screens
 import HomeStackScreen from './HomeStackScreen';
 import Search from 'screens/Search';
@@ -79,6 +81,8 @@ const TabsScreen = () => (
                 name={`heart${focused ? '' : 'o'}`}
               />
             );
+          case Routes.PROFILE_TAB:
+            return <Avatar size="esm" isFocused={focused} />;
         }
       },
     })}>

@@ -23,7 +23,7 @@ export interface IInstagramPostProps {
   media_url: string;
   media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
   timestamp: string;
-  children: { data: string[] };
+  children: { data: { media_url: IInstagramPostProps['media_url'] }[] };
 }
 
 const InstagramPost: React.FC<IInstagramPostProps> = ({
@@ -34,7 +34,7 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
   ...rest
 }) => {
   const mediaList = useMemo(
-    () => children && children.data.map((el: any) => el.media_url),
+    () => children && children.data.map((el) => el.media_url),
     [children],
   );
 

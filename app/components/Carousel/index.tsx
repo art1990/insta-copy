@@ -28,7 +28,6 @@ const dotsSize = 6;
 
 const Carousel: React.FC<{ mediaList: string[] }> = ({ mediaList }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const scrollRef = useRef(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const dotsContainerRef = useRef<{ [key: string]: { x: number; y: number } }>(
     {},
@@ -69,7 +68,6 @@ const Carousel: React.FC<{ mediaList: string[] }> = ({ mediaList }) => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         onMomentumScrollEnd={setSelected}
-        ref={scrollRef}
         onScroll={Animated.event(
           [
             {

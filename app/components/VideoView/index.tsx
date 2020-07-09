@@ -13,10 +13,14 @@ import { formatToTimer } from 'utils/date';
 import Styles from 'assets/styles/styles';
 // colors
 import { Colors } from 'assets/styles/constants';
+// types
+import { IInstagramPostProps } from 'components/InstagramPost';
 
 let timer: number | null = null;
 
-const VideoView: React.FC<{ media_url: string }> = ({ media_url }) => {
+const VideoView: React.FC<{ media_url: IInstagramPostProps['media_url'] }> = ({
+  media_url,
+}) => {
   const [isSound, setIsSound] = useState(false);
   const [isSoundIconVisible, setIsSoundIconVisible] = useState(false);
   const [restTime, setRestTime] = useState<string | null>(null);

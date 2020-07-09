@@ -42,7 +42,7 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
     Animated.sequence([
       Animated.timing(animatedScale, {
         toValue: 0.8,
-        useNativeDriver: false,
+        useNativeDriver: true,
         duration: 100,
       }),
     ]).start();
@@ -52,7 +52,7 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
     Animated.timing(animatedScale, {
       toValue: 1,
       duration: 100,
-      useNativeDriver: false,
+      useNativeDriver: true,
     }).start();
   };
 
@@ -65,14 +65,14 @@ const AvatarButton: React.FC<IAvatarButtonProps> = ({
       Animated.sequence([
         Animated.timing(animatedOpacity, {
           toValue: 1,
-          useNativeDriver: false,
+          useNativeDriver: true,
           duration: 0,
         }),
         Animated.loop(
           Animated.timing(animatedDashed, {
             toValue: 90,
             duration: 4000,
-            useNativeDriver: false,
+            useNativeDriver: true,
           }),
         ),
       ]).start();

@@ -1,5 +1,7 @@
 // react
 import { useCallback, useState } from 'react';
+// type
+import { IInstagramPostProps } from 'components/InstagramPost';
 
 type TApi = (paging?: { next: string } | null) => Promise<any>;
 
@@ -9,14 +11,14 @@ type TUseFetchData = ({
   serializer,
 }: {
   api: TApi;
-  initialValues?: any;
+  initialValues?: IInstagramPostProps[];
   serializer?: <T>(data: T) => T;
 }) => {
-  resource: any;
+  resource?: IInstagramPostProps[];
   isLoading: boolean;
   fetchResource: (params?: any) => Promise<any>;
   setResource: (setter: any) => void;
-  paging: any;
+  paging?: { next: string } | null;
 };
 
 const useFetchData: TUseFetchData = function ({
@@ -36,9 +38,10 @@ const useFetchData: TUseFetchData = function ({
         setValues((state) => ({ ...state, isLoading: true }));
         const response = await api(params?.isLoadMore && paging);
         setValues((prev) => ({
-          resource: params?.isLoadMore
-            ? [...prev?.resource, ...serializer(response.data?.data)]
-            : serializer(response?.data?.data),
+          resource:
+            params?.isLoadMore && prev?.resource
+              ? [...prev?.resource, ...serializer(response.data?.data)]
+              : serializer(response?.data?.data),
           isLoading: false,
           paging: response?.data.paging,
         }));

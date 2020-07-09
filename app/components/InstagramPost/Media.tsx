@@ -11,8 +11,8 @@ import { IInstagramPostProps } from './index';
 
 interface IMediaProps {
   children: IInstagramPostProps['children'];
-  media_url: string;
-  media_type: 'IMAGE' | 'VIDEO' | 'CARUSEL_ALBUM';
+  media_url: IInstagramPostProps['media_url'];
+  media_type: IInstagramPostProps['media_type'];
   mediaList: IMediaProps['media_url'][];
 }
 

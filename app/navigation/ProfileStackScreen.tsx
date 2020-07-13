@@ -14,7 +14,7 @@ import { Colors } from 'assets/styles/constants';
 
 const ProfileStack = createStackNavigator();
 
-const size = 16;
+const size = 18;
 
 const headerLeft = () => (
   <View style={styles.headerLeft}>
@@ -23,13 +23,7 @@ const headerLeft = () => (
   </View>
 );
 
-const headerRight = () => (
-  <View style={styles.headerRight}>
-    {[...new Array(3)].map(() => (
-      <View style={styles.row} />
-    ))}
-  </View>
-);
+const headerRight = () => <FeatherIcons name="menu" size={25} />;
 
 const HomeStackScreen: React.FC = () => (
   <ProfileStack.Navigator

@@ -1,11 +1,13 @@
 // react
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+// components
+import ViewAndAddAvatar from 'components/ViewAndAddAvatar/index';
 
 const Profile: React.FC = () => {
   return (
     <View>
-      <Text>Profile</Text>
+      <ViewAndAddAvatar />
     </View>
   );
 };

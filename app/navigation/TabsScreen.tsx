@@ -17,7 +17,7 @@ import { Routes } from './routes';
 // icons
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
-import OcticonsIcons from 'react-native-vector-icons/Octicons';
+import FontAwesomeIcons from 'react-native-vector-icons/FontAwesome';
 
 const SearchStack = createStackNavigator();
 const SearchStackScreen = () => (
@@ -65,7 +65,7 @@ const TabsScreen = () => (
           case Routes.SEARCH_TAB:
             return <AntDesignIcons size={size} name="search1" />;
           case Routes.ADD_PHOTO_TAB:
-            return <OcticonsIcons size={size} name="diff-added" />;
+            return <FontAwesomeIcons size={size} name="plus-square-o" />;
           case Routes.ACTIVITY_TAB:
             return (
               <AntDesignIcons

@@ -18,7 +18,7 @@ const Avatar: React.FC<IAvatarProps> = ({
   isFocused,
 }) => {
   const sizeCount =
-    size === 'sm' ? 30 : size === 'esm' ? 20 : size === 'lg' ? 100 : 50;
+    size === 'sm' ? 30 : size === 'esm' ? 20 : size === 'lg' ? 75 : 50;
   const sizeStyle = {
     height: sizeCount,
     width: sizeCount,

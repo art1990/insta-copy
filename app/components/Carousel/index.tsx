@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   Text,
+  LayoutChangeEvent,
   Animated,
 } from 'react-native';
 // components

@@ -3,46 +3,49 @@ import React, { useCallback, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 // components
 import Spinner from 'components/Spinner';
-
 import FlatList from './FlatList';
-// hooks
-import useFetchData from 'hooks/useFetchData';
-// api
-import { getAll } from 'utils/services/api/post';
+// redux
+import { useSelector, useDispatch } from 'react-redux';
+import { selectPosts, selectMeta } from 'store/post/selectors';
+import { getAllAction } from 'store/post';
 // colors
 import { Colors } from 'assets/styles/constants';
 
 const Home: React.FC = () => {
-  const { resource, fetchResource, isLoading, paging } = useFetchData({
-    api: getAll,
-  });
+  // const { resource, fetchResource, isLoading, paging } = useFetchData({
+  //   api: getAll,
+  // });
+
+  const posts = useSelector(selectPosts);
+  const meta = useSelector(selectMeta);
+  const dispatch = useDispatch();
   const loadMore = useCallback(() => {
-    if (isLoading || !paging?.next) {
+    if (meta.isLoading || !meta.paging?.next) {
       return;
     }
-    fetchResource({ isLoadMore: true });
-  }, [isLoading, fetchResource, paging?.next]);
+    dispatch(getAllAction({ paging: meta?.paging }));
+  }, [meta, dispatch]);
 
   const onRefresh = async (
     setRefreshing: React.Dispatch<React.SetStateAction<boolean>>,
   ) => {
     setRefreshing(true);
-    await fetchResource();
+    await dispatch(getAllAction());
     setRefreshing(false);
   };
 
   useEffect(() => {
-    fetchResource();
+    dispatch(getAllAction());
   }, []);
 
   return (
     <View style={styles.container}>
-      {resource && (
+      {posts && (
         <FlatList
-          postsList={resource}
+          postsList={posts}
           loadMore={loadMore}
           onRefresh={onRefresh}
-          renderFooter={() => isLoading && <Spinner />}
+          renderFooter={() => meta.isLoading && <Spinner />}
         />
       )}
     </View>

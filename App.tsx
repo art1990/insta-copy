@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 // navigation
 import RootNavigator from './app/navigation/RootNavigator';
 import RNBootSplash from 'react-native-bootsplash';
+// redux
+import { Provider } from 'react-redux';
+import { store } from 'store/store';
 
 declare const global: { HermesInternal: null | {} };
 
@@ -13,7 +16,11 @@ const App = () => {
     }, 3000);
   }, []);
 
-  return <RootNavigator />;
+  return (
+    <Provider store={store}>
+      <RootNavigator />
+    </Provider>
+  );
 };
 
 export default App;

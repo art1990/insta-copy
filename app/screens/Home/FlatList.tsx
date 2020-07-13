@@ -29,7 +29,6 @@ const CustomFlatList: React.FC<ICustomFlatListProps> = ({
   onRefresh,
 }) => {
   const [refreshing, setRefreshing] = useState(false);
-
   return (
     <FlatList
       style={Styles.fullScreen}

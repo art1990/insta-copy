@@ -6,4 +6,5 @@ export enum Colors {
   CARUSEL_ACTIVE = 'rgb(0, 149, 246)',
   MEDIA_META_BG = 'rgba(0,0,0,0.7)',
   SPINNER = 'rgba(0,0,0,0.1)',
+  BLUE = CARUSEL_ACTIVE,
 }

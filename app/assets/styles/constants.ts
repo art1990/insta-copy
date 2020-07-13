@@ -7,4 +7,6 @@ export enum Colors {
   MEDIA_META_BG = 'rgba(0,0,0,0.7)',
   SPINNER = 'rgba(0,0,0,0.1)',
   BLUE = CARUSEL_ACTIVE,
+  ACCEPT = 'rgb(72, 212, 30);',
+  BLACK = TAB,
 }

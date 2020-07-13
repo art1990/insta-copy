@@ -86,7 +86,9 @@ const InstagramPost: React.FC<IInstagramPostProps> = ({
         </View>
         <IconButton name="dots-vertical" onPress={showModal} />
       </View>
+
       <Media mediaList={mediaList} children={children} {...rest} />
+
       <View style={styles.buttonContainer}>
         <View style={styles.buttonSection}>
           <IconButtonOnPressAnimation

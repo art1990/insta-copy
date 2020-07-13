@@ -1,12 +1,16 @@
 // react
 import React from 'react';
-import { StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TouchableWithoutFeedback,
+  GestureResponderEvent,
+} from 'react-native';
 // components
 import Avatar from 'components/Avatar';
 import AntDesignIcons from 'react-native-vector-icons/AntDesign';
 // colors
 import { Colors } from 'assets/styles/constants';
-import { GestureResponderEvent } from 'react-native';
 // types
 import { IAvatarProps } from 'components/Avatar';
 

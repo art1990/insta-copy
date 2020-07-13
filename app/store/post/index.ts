@@ -2,16 +2,32 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 // api
 import { getAll } from 'utils/services/api/post';
+// types
+import { IInstagramPostProps } from 'components/InstagramPost';
 
 // action types
 const GET_LIST = 'instaCopy/posts/getList';
 
-export const getAllAction: any = createAsyncThunk(GET_LIST, async (options) => {
-  const response = await getAll(options);
-  return response?.data;
-});
+export type TPaging = { next: string };
 
-const initialState = {
+export const getAllAction: any = createAsyncThunk(
+  GET_LIST,
+  async (options?: { paging: TPaging }) => {
+    const response = await getAll(options);
+    return response?.data;
+  },
+);
+
+interface IInitialState {
+  posts: IInstagramPostProps[];
+  meta: {
+    isLoading: boolean;
+    error: {} | null;
+    paging: { next: string } | null;
+  };
+}
+
+const initialState: IInitialState = {
   posts: [],
   meta: { isLoading: false, error: null, paging: null },
 };
@@ -25,7 +41,10 @@ const postsSlice = createSlice({
       state.meta.isLoading = true;
       state.meta.paging = meta.arg?.paging;
     },
-    [getAllAction.fulfilled]: (state, { payload }) => {
+    [getAllAction.fulfilled]: (
+      state,
+      { payload }: { payload: { data: []; paging: { next: string } } },
+    ) => {
       if (state.meta.paging) {
         state.posts.push(...payload?.data);
       } else {
